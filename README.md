@@ -2,7 +2,7 @@
 
 This project is used to create a postgres image and container.
 
-A dbt image is already created using the Dockerhub Repository called `keithfajardo/i-postgres:latest`.
+A postgres image is already created using the Dockerhub Repository called `keithfajardo/i-postgres:latest`.
 
 If you just want to use this dockerhub image, you can run:
 ```
