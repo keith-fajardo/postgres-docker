@@ -29,6 +29,16 @@ function stop_container() {
   fi
 }
 
+function create_network() {
+
+  if ! docker network inspect "$CONTAINER_NETWORK" >/dev/null 2>&1; then
+    echo "Creating Docker network: $CONTAINER_NETWORK"
+    docker network create "$CONTAINER_NETWORK"
+  else
+    echo "Docker network '$CONTAINER_NETWORK' already exists."
+  fi
+}
+
 function run_container() {
   # Check if the container exists (either running or stopped)
   if docker container inspect "$CONTAINER_NAME" > /dev/null 2>&1; then
@@ -62,6 +72,9 @@ while [[ "$#" -gt 0 ]]; do
   esac
   shift
 done
+
+# Create the Docker network if it doesn't exist
+create_network
 
 # Check if image exists locally
 if docker image inspect "${IMG_NAME}" > /dev/null 2>&1; then
